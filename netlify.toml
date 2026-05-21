@@ -1,0 +1,10 @@
+[build]
+  command = "echo 'Build successful'"
+  functions = "functions"
+  publish = "."
+
+[functions]
+  directory = "functions"
+
+[build.environment]
+  NODE_VERSION = "18"
