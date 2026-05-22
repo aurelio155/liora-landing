@@ -687,6 +687,11 @@
     </div>
 
     <script>
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init('3u3H0197jfMZELY4z');
+
         let selectedQuizType = null;
 
         function toggleChat() {
@@ -820,9 +825,9 @@
                 return;
             }
 
-            // Send precommand via Netlify Function (which sends emails via SendGrid)
             const totalPrice = currentProduct.price * quantity;
 
+            // Send precommand via Netlify Function
             fetch('/.netlify/functions/precommand', {
                 method: 'POST',
                 headers: {
@@ -840,6 +845,15 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    // Send confirmation email to client via EmailJS
+                    emailjs.send('service_p646aha', 'template_v2qsc7d', {
+                        email: email,
+                        productName: currentProduct.name,
+                        quantity: quantity,
+                        totalPrice: totalPrice,
+                        order_id: Math.random().toString(36).substr(2, 9).toUpperCase()
+                    });
+
                     alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
                     closePrecommandModal();
                 } else {
