@@ -70,7 +70,7 @@ Réponds aux questions des clients avec enthousiasme, professionalisme, et conci
           "anthropic-version": "2023-06-01",
         },
         body: JSON.stringify({
-          model: "claude-3-5-sonnet-20241022",
+          model: "claude-3-sonnet-20240229",
           max_tokens: 300,
           system: systemPrompt,
           messages: [
