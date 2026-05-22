@@ -1,5 +1,3 @@
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -30,40 +28,32 @@ exports.handler = async (event) => {
       };
     }
 
-    // Send admin notification
+    // Send admin notification via Formspree
     try {
-      const adminResponse = await fetch('https://api.resend.com/emails', {
+      await fetch('https://formspree.io/f/mlgvngwe', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: 'noreply@resend.dev',
-          to: 'aurelio.louna@gmail.com',
-          subject: `Nouvelle pré-commande : ${productName}`,
-          html: `
-            <h2>Nouvelle pré-commande</h2>
-            <p><strong>Client :</strong> ${email}</p>
-            <p><strong>Produit :</strong> ${productName}</p>
-            <p><strong>Quantité :</strong> ${quantity}</p>
-            <p><strong>Prix unitaire :</strong> ${price}€</p>
-            <p><strong>Total :</strong> ${totalPrice}€</p>
-          `
+          email: email,
+          productName: productName,
+          productId: productId,
+          quantity: quantity,
+          price: price,
+          totalPrice: totalPrice
         })
       });
-      const adminData = await adminResponse.json();
-      console.log('Admin email response:', adminData);
-    } catch (adminError) {
-      console.error('Admin email error:', adminError);
+    } catch (formspreeError) {
+      console.error('Formspree admin error:', formspreeError);
     }
 
-    // Send client confirmation
+    // Send client confirmation via Resend
     try {
-      const clientResponse = await fetch('https://api.resend.com/emails', {
+      await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -79,10 +69,8 @@ exports.handler = async (event) => {
           `
         })
       });
-      const clientData = await clientResponse.json();
-      console.log('Client email response:', clientData);
-    } catch (clientError) {
-      console.error('Client email error:', clientError);
+    } catch (resendError) {
+      console.error('Resend client error:', resendError);
     }
 
     return {
