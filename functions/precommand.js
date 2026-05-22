@@ -1,3 +1,5 @@
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -28,9 +30,11 @@ exports.handler = async (event) => {
       };
     }
 
+    console.log('RESEND_API_KEY exists:', !!RESEND_API_KEY);
+
     // Send admin notification via Formspree
     try {
-      await fetch('https://formspree.io/f/mlgvngwe', {
+      const formspreeResponse = await fetch('https://formspree.io/f/mlgvngwe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -44,16 +48,17 @@ exports.handler = async (event) => {
           totalPrice: totalPrice
         })
       });
-    } catch (formspreeError) {
-      console.error('Formspree admin error:', formspreeError);
+      console.log('Formspree admin status:', formspreeResponse.status);
+    } catch (adminError) {
+      console.error('Formspree admin error:', adminError);
     }
 
     // Send client confirmation via Resend
     try {
-      await fetch('https://api.resend.com/emails', {
+      const resendResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -69,8 +74,12 @@ exports.handler = async (event) => {
           `
         })
       });
-    } catch (resendError) {
-      console.error('Resend client error:', resendError);
+      
+      console.log('Resend client status:', resendResponse.status);
+      const resendData = await resendResponse.json();
+      console.log('Resend client response:', resendData);
+    } catch (clientError) {
+      console.error('Resend client error:', clientError);
     }
 
     return {
