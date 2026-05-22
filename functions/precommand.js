@@ -40,7 +40,7 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify({
           from: 'noreply@resend.dev',
-          to: 'liora.jewelry.fr@outlook.com',
+          to: 'aurelio.louna@gmail.com',
           subject: `Nouvelle pré-commande : ${productName}`,
           html: `
             <h2>Nouvelle pré-commande</h2>
