@@ -32,7 +32,7 @@ exports.handler = async (event) => {
 
     // Send admin notification
     try {
-      await fetch('https://api.resend.com/emails', {
+      const adminResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${RESEND_API_KEY}`,
@@ -52,13 +52,15 @@ exports.handler = async (event) => {
           `
         })
       });
+      const adminData = await adminResponse.json();
+      console.log('Admin email response:', adminData);
     } catch (adminError) {
       console.error('Admin email error:', adminError);
     }
 
     // Send client confirmation
     try {
-      await fetch('https://api.resend.com/emails', {
+      const clientResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${RESEND_API_KEY}`,
@@ -77,6 +79,8 @@ exports.handler = async (event) => {
           `
         })
       });
+      const clientData = await clientResponse.json();
+      console.log('Client email response:', clientData);
     } catch (clientError) {
       console.error('Client email error:', clientError);
     }
