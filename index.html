@@ -685,7 +685,6 @@
             <button onclick="sendMessage()" style="flex: 0 0 40px; padding: 8px;">→</button>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
     <script>
         // DECLARE ALL VARIABLES AT THE TOP
@@ -696,8 +695,12 @@
             price: null
         };
 
-        // Initialize EmailJS
-        emailjs.init('3u3H0197jfMZELY4z');
+        // Initialize EmailJS when the script loads
+        setTimeout(() => {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init('3u3H0197jfMZELY4z');
+            }
+        }, 100);
 
         function toggleChat() {
             const chatWindow = document.getElementById('chatWindow');
@@ -837,20 +840,25 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    emailjs.send('service_p646aha', 'template_v2qsc7d', {
-                        email: email,
-                        productName: currentProduct.name,
-                        quantity: quantity,
-                        totalPrice: totalPrice,
-                        order_id: Math.random().toString(36).substr(2, 9).toUpperCase()
-                    }).then(() => {
+                    if (typeof emailjs !== 'undefined') {
+                        emailjs.send('service_p646aha', 'template_v2qsc7d', {
+                            email: email,
+                            productName: currentProduct.name,
+                            quantity: quantity,
+                            totalPrice: totalPrice,
+                            order_id: Math.random().toString(36).substr(2, 9).toUpperCase()
+                        }).then(() => {
+                            alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
+                            closePrecommandModal();
+                        }).catch(err => {
+                            console.error('EmailJS error:', err);
+                            alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
+                            closePrecommandModal();
+                        });
+                    } else {
                         alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
                         closePrecommandModal();
-                    }).catch(err => {
-                        console.error('EmailJS error:', err);
-                        alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
-                        closePrecommandModal();
-                    });
+                    }
                 } else {
                     alert('Petite erreur technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
                 }
