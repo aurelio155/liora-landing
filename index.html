@@ -10,33 +10,28 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Georgia', 'Garamond', serif;
             background: #fefdfb;
             color: #333;
             line-height: 1.8;
         }
-
         .container {
             max-width: 700px;
             margin: 0 auto;
             padding: 60px 30px;
             text-align: center;
         }
-
         header {
             margin-bottom: 80px;
             padding-bottom: 60px;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
-
         .logo-img {
             max-width: 300px;
             height: auto;
             margin-bottom: 40px;
         }
-
         h1 {
             font-size: 48px;
             font-weight: 400;
@@ -44,7 +39,6 @@
             margin-bottom: 25px;
             color: #1a1a1a;
         }
-
         .subtitle {
             font-size: 17px;
             color: #777;
@@ -52,7 +46,6 @@
             font-weight: 300;
             font-style: italic;
         }
-
         .scarcity-bar {
             background: rgba(212, 175, 55, 0.08);
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -62,34 +55,29 @@
             color: #d4af37;
             font-weight: 600;
         }
-
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin: 80px 0;
         }
-
         .feature {
             text-align: left;
             padding: 30px;
             border-left: 2px solid #d4af37;
             background: rgba(212, 175, 55, 0.03);
         }
-
         .feature h3 {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 12px;
             color: #1a1a1a;
         }
-
         .feature p {
             font-size: 14px;
             color: #888;
             line-height: 1.7;
         }
-
         .jewelry-3d {
             width: 150px;
             height: 150px;
@@ -99,32 +87,27 @@
             box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
             animation: rotate 8s linear infinite;
         }
-
         @keyframes rotate {
             0% { transform: rotateY(0deg); }
             100% { transform: rotateY(360deg); }
         }
-
         .quiz-section {
             background: rgba(212, 175, 55, 0.05);
             border: 1px solid rgba(212, 175, 55, 0.15);
             padding: 40px 30px;
             margin: 80px 0;
         }
-
         .quiz-title {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 20px;
         }
-
         .quiz-buttons {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-
         .quiz-btn {
             flex: 1;
             min-width: 100px;
@@ -137,13 +120,11 @@
             font-size: 12px;
             transition: all 0.3s;
         }
-
         .quiz-btn:hover,
         .quiz-btn.selected {
             background: #d4af37;
             color: white;
         }
-
         .quiz-input {
             width: 100%;
             padding: 12px;
@@ -152,20 +133,17 @@
             font-family: inherit;
             font-size: 14px;
         }
-
         .cta-section {
             background: rgba(212, 175, 55, 0.05);
             border: 1px solid rgba(212, 175, 55, 0.2);
             padding: 60px 30px;
             margin: 80px 0;
         }
-
         .cta-title {
             font-size: 24px;
             font-weight: 400;
             margin-bottom: 30px;
         }
-
         input[type="email"] {
             width: 100%;
             padding: 14px;
@@ -174,7 +152,6 @@
             font-family: inherit;
             font-size: 15px;
         }
-
         button {
             width: 100%;
             padding: 14px;
@@ -187,11 +164,9 @@
             letter-spacing: 1px;
             transition: transform 0.3s;
         }
-
         button:hover {
             transform: translateY(-2px);
         }
-
         .success-message {
             display: none;
             margin-top: 15px;
@@ -200,35 +175,30 @@
             color: #333;
             font-size: 13px;
         }
-
         .shop-section {
             margin: 120px 0;
             padding: 60px 0;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
-
         .shop-title {
             font-size: 36px;
             font-weight: 400;
             margin-bottom: 15px;
             color: #1a1a1a;
         }
-
         .shop-subtitle {
             font-size: 15px;
             color: #888;
             margin-bottom: 60px;
             font-style: italic;
         }
-
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
-
         .product-card {
             background: white;
             border: 1px solid rgba(212, 175, 55, 0.15);
@@ -238,7 +208,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .product-card::before {
             content: '';
             position: absolute;
@@ -249,36 +218,30 @@
             background: linear-gradient(90deg, transparent, rgba(239, 191, 4, 0.1), transparent);
             transition: left 0.5s;
         }
-
         .product-card:hover {
             border-color: rgba(212, 175, 55, 0.4);
             box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
             transform: translateY(-8px);
         }
-
         .product-card:hover::before {
             left: 100%;
         }
-
         .product-image {
             font-size: 50px;
             margin-bottom: 20px;
             display: inline-block;
             animation: float 3s ease-in-out infinite;
         }
-
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
-
         .product-name {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 10px;
             color: #1a1a1a;
         }
-
         .product-desc {
             font-size: 13px;
             color: #888;
@@ -286,7 +249,6 @@
             line-height: 1.6;
             min-height: 40px;
         }
-
         .product-price {
             font-size: 22px;
             font-weight: 700;
@@ -294,7 +256,6 @@
             margin-bottom: 20px;
             letter-spacing: 0.5px;
         }
-
         .precommand-btn {
             width: 100%;
             padding: 12px;
@@ -308,12 +269,10 @@
             font-size: 13px;
             transition: all 0.3s;
         }
-
         .precommand-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
-
         .precommand-modal {
             display: none;
             position: fixed;
@@ -326,11 +285,9 @@
             justify-content: center;
             align-items: center;
         }
-
         .precommand-modal.active {
             display: flex;
         }
-
         .modal-content {
             background: white;
             padding: 50px 40px;
@@ -340,32 +297,22 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
             animation: slideIn 0.3s ease-out;
         }
-
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
-
         .modal-header {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 10px;
             color: #1a1a1a;
         }
-
         .modal-price {
             font-size: 28px;
             color: #d4af37;
             font-weight: 700;
             margin-bottom: 30px;
         }
-
         .modal-input {
             width: 100%;
             padding: 12px;
@@ -375,12 +322,11 @@
             font-size: 14px;
             border-radius: 4px;
         }
-
         .modal-buttons {
             display: flex;
             gap: 10px;
+            margin-top: 5px;
         }
-
         .modal-buttons button {
             flex: 1;
             padding: 12px;
@@ -389,27 +335,38 @@
             font-weight: 600;
             border-radius: 4px;
             transition: all 0.3s;
+            text-transform: none;
+            letter-spacing: 0;
         }
-
         .modal-confirm {
             background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
             color: #1a1a1a;
         }
-
-        .modal-confirm:hover {
+        .modal-confirm:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
-
+        .modal-confirm:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
         .modal-cancel {
             background: #f0f0f0;
             color: #333;
         }
-
         .modal-cancel:hover {
             background: #e0e0e0;
+            transform: none;
         }
-
+        .modal-success {
+            display: none;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .modal-success .big-emoji { font-size: 3rem; margin-bottom: 14px; }
+        .modal-success strong { font-size: 1.1rem; color: #1a1a1a; display: block; margin-bottom: 10px; }
+        .modal-success p { font-size: 0.9rem; color: #666; line-height: 1.6; }
         footer {
             margin-top: 80px;
             padding-top: 40px;
@@ -417,7 +374,6 @@
             font-size: 12px;
             color: #999;
         }
-
         .chat-button {
             position: fixed;
             bottom: 30px;
@@ -433,7 +389,6 @@
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
             z-index: 100;
         }
-
         .chat-window {
             position: fixed;
             bottom: 100px;
@@ -448,11 +403,7 @@
             z-index: 100;
             border-radius: 8px;
         }
-
-        .chat-window.active {
-            display: flex;
-        }
-
+        .chat-window.active { display: flex; }
         .chat-header {
             background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
             color: #1a1a1a;
@@ -462,13 +413,11 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .chat-messages {
             flex: 1;
             overflow-y: auto;
             padding: 15px;
         }
-
         .message {
             margin-bottom: 12px;
             padding: 10px;
@@ -476,57 +425,32 @@
             font-size: 12px;
             line-height: 1.4;
         }
-
-        .message.bot {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .message.user {
-            background: #d4af37;
-            color: white;
-            margin-left: 20px;
-        }
-
+        .message.bot  { background: #f0f0f0; color: #333; }
+        .message.user { background: #d4af37; color: white; margin-left: 20px; }
         .chat-input-area {
             border-top: 1px solid #eee;
             padding: 12px;
             display: flex;
             gap: 8px;
         }
-
         .chat-input-area input {
             flex: 1;
             border: 1px solid #d4af37;
             padding: 8px;
             font-family: inherit;
         }
-
         .chat-input-area button {
             padding: 8px 12px;
             background: #d4af37;
             color: #1a1a1a;
             margin: 0;
+            flex: 0 0 40px;
         }
-
         @media (max-width: 600px) {
-            h1 {
-                font-size: 36px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .container {
-                padding: 40px 20px;
-            }
-
-            .chat-window {
-                width: calc(100% - 40px);
-                right: 20px;
-            }
+            h1 { font-size: 36px; }
+            .features { grid-template-columns: 1fr; gap: 25px; }
+            .container { padding: 40px 20px; }
+            .chat-window { width: calc(100% - 40px); right: 20px; }
         }
     </style>
 </head>
@@ -577,70 +501,62 @@
         <section class="shop-section">
             <h2 class="shop-title">Nos Créations Exclusives ✨</h2>
             <p class="shop-subtitle">Des bijoux intemporels. Acier 316L + plaquage PVD doré. À porter tous les jours.</p>
-
             <div class="products-grid">
                 <div class="product-card">
                     <div class="product-image">💍</div>
                     <h3 class="product-name">Bague Minimalist</h3>
                     <p class="product-desc">Épurée et intemporelle. La pièce qu'on porte à jamais.</p>
                     <div class="product-price">18€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('bague-minimalist', 'Bague Minimalist', 18)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Bague Minimalist', 18)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">📿</div>
                     <h3 class="product-name">Collier Chaîne Or</h3>
                     <p class="product-desc">Fine et délicate. S'accorde avec tout. Jamais sans.</p>
                     <div class="product-price">22€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('collier-chaine', 'Collier Chaîne Or', 22)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Collier Chaîne Or', 22)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">⌚</div>
                     <h3 class="product-name">Bracelet Premium</h3>
                     <p class="product-desc">Confortable et élégant. Le compagnon du quotidien.</p>
                     <div class="product-price">25€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('bracelet-premium', 'Bracelet Premium', 25)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Bracelet Premium', 25)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">✨</div>
                     <h3 class="product-name">Boucles d'Oreilles</h3>
                     <p class="product-desc">Légères et subtiles. La touche finale parfaite.</p>
                     <div class="product-price">16€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('boucles-oreilles', 'Boucles d\'Oreilles', 16)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Boucles d\'Oreilles', 16)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">🔗</div>
                     <h3 class="product-name">Hand Chain Or</h3>
                     <p class="product-desc">Tendance et féminisante. La main parée d'or.</p>
                     <div class="product-price">28€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('hand-chain', 'Hand Chain Or', 28)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Hand Chain Or', 28)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">💎</div>
                     <h3 class="product-name">Set Collier + Bague</h3>
                     <p class="product-desc">L'ensemble parfait. Deux pièces, une histoire.</p>
                     <div class="product-price">35€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('set-complet', 'Set Collier + Bague', 35)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Set Collier + Bague', 35)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">👑</div>
                     <h3 class="product-name">Bague Signature</h3>
                     <p class="product-desc">Notre bestseller. 5000+ portent déjà la leur.</p>
                     <div class="product-price">20€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('bague-signature', 'Bague Signature', 20)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Bague Signature', 20)">Pré-commander →</button>
                 </div>
-
                 <div class="product-card">
                     <div class="product-image">🌟</div>
                     <h3 class="product-name">Box Découverte (4 pièces)</h3>
                     <p class="product-desc">Essayer tout. Notre combo best-seller. Offre exclusive.</p>
                     <div class="product-price">59€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('box-decouverte', 'Box Découverte', 59)">Pré-commander →</button>
+                    <button class="precommand-btn" onclick="openPrecommandModal('Box Découverte (4 pièces)', 59)">Pré-commander →</button>
                 </div>
             </div>
         </section>
@@ -660,117 +576,106 @@
         </footer>
     </div>
 
+    <!-- Modal Précommande -->
     <div class="precommand-modal" id="precommandModal">
         <div class="modal-content">
-            <div class="modal-header" id="modalProductName">Bague Minimalist</div>
-            <div class="modal-price" id="modalProductPrice">18€</div>
-            <input type="email" class="modal-input" id="modalEmail" placeholder="Ton email" required>
-            <input type="number" class="modal-input" id="modalQuantity" placeholder="Quantité" value="1" min="1" required>
-            <div class="modal-buttons">
-                <button class="modal-confirm" onclick="submitPrecommand()">Pré-commander Maintenant</button>
-                <button class="modal-cancel" onclick="closePrecommandModal()">Annuler</button>
+            <div id="modalFormArea">
+                <div class="modal-header" id="modalProductName">Bague Minimalist</div>
+                <div class="modal-price" id="modalProductPrice">18€</div>
+                <input type="text"   class="modal-input" id="modalName"     placeholder="Ton prénom" autocomplete="given-name" />
+                <input type="email"  class="modal-input" id="modalEmail"    placeholder="Ton email" autocomplete="email" />
+                <input type="number" class="modal-input" id="modalQuantity" placeholder="Quantité" value="1" min="1" />
+                <div class="modal-buttons">
+                    <button class="modal-confirm" id="modalConfirmBtn" onclick="submitPrecommand()">Pré-commander Maintenant</button>
+                    <button class="modal-cancel"  onclick="closePrecommandModal()">Annuler</button>
+                </div>
+            </div>
+            <div class="modal-success" id="modalSuccess">
+                <div class="big-emoji">🎉</div>
+                <strong>Précommande confirmée !</strong>
+                <p>Merci pour ta confiance.<br>Un email de confirmation t'a été envoyé.<br>On te recontacte très vite. 💛</p>
+                <br>
+                <button class="modal-cancel" style="border-radius:4px;" onclick="closePrecommandModal()">Fermer</button>
             </div>
         </div>
     </div>
 
+    <!-- Chat IA -->
     <button class="chat-button" onclick="toggleChat()">💬</button>
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
             Liora IA
-            <button style="background: transparent; border: none; color: #1a1a1a; cursor: pointer; padding: 0;" onclick="toggleChat()">✕</button>
+            <button style="background:transparent;border:none;color:#1a1a1a;cursor:pointer;padding:0;" onclick="toggleChat()">✕</button>
         </div>
         <div class="chat-messages" id="messages"></div>
         <div class="chat-input-area">
             <input type="text" id="chatInput" placeholder="Question...">
-            <button onclick="sendMessage()" style="flex: 0 0 40px; padding: 8px;">→</button>
+            <button onclick="sendMessage()" style="flex:0 0 40px;padding:8px;">→</button>
         </div>
     </div>
 
     <script>
-        // DECLARE ALL VARIABLES AT THE TOP
         let selectedQuizType = null;
-        let currentProduct = {
-            id: null,
-            name: null,
-            price: null
-        };
+        let currentProduct   = { name: '', price: 0 };
 
         function toggleChat() {
-            const chatWindow = document.getElementById('chatWindow');
-            chatWindow.classList.toggle('active');
-            if (chatWindow.classList.contains('active')) {
-                addBotMessage('Salut ! Des questions sur Liora ? 💎');
-            }
+            const w = document.getElementById('chatWindow');
+            w.classList.toggle('active');
+            if (w.classList.contains('active')) addBotMessage('Salut ! Des questions sur Liora ? 💎');
         }
-
         function addBotMessage(text) {
-            const messages = document.getElementById('messages');
-            const msg = document.createElement('div');
-            msg.className = 'message bot';
-            msg.textContent = text;
-            messages.appendChild(msg);
-            messages.scrollTop = messages.scrollHeight;
+            const m = document.getElementById('messages');
+            const d = document.createElement('div');
+            d.className = 'message bot';
+            d.textContent = text;
+            m.appendChild(d);
+            m.scrollTop = m.scrollHeight;
         }
-
         function addUserMessage(text) {
-            const messages = document.getElementById('messages');
-            const msg = document.createElement('div');
-            msg.className = 'message user';
-            msg.textContent = text;
-            messages.appendChild(msg);
-            messages.scrollTop = messages.scrollHeight;
+            const m = document.getElementById('messages');
+            const d = document.createElement('div');
+            d.className = 'message user';
+            d.textContent = text;
+            m.appendChild(d);
+            m.scrollTop = m.scrollHeight;
         }
-
         function sendMessage() {
             const input = document.getElementById('chatInput');
-            const text = input.value.trim();
+            const text  = input.value.trim();
             if (!text) return;
-
             addUserMessage(text);
             input.value = '';
             addBotMessage('En train de réfléchir... 💭');
-
             fetch('/.netlify/functions/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text }),
             })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
+            .then(r => { if (!r.ok) throw new Error(); return r.json(); })
             .then(data => {
-                const messages = document.getElementById('messages');
-                if (messages.lastChild && messages.lastChild.textContent === 'En train de réfléchir... 💭') {
-                    messages.removeChild(messages.lastChild);
-                }
+                const m = document.getElementById('messages');
+                if (m.lastChild && m.lastChild.textContent === 'En train de réfléchir... 💭') m.removeChild(m.lastChild);
                 addBotMessage(data.reply);
             })
-            .catch(error => {
-                console.error('Error:', error);
-                const messages = document.getElementById('messages');
-                if (messages.lastChild && messages.lastChild.textContent === 'En train de réfléchir... 💭') {
-                    messages.removeChild(messages.lastChild);
-                }
-                addBotMessage('Désolé, j\'ai un petit souci technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
+            .catch(() => {
+                const m = document.getElementById('messages');
+                if (m.lastChild && m.lastChild.textContent === 'En train de réfléchir... 💭') m.removeChild(m.lastChild);
+                addBotMessage('Désolé, petit souci technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
             });
         }
+        document.getElementById('chatInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter') sendMessage();
+        });
 
         function selectQuiz(btn, type) {
             document.querySelectorAll('.quiz-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             selectedQuizType = type;
         }
-
         function submitQuiz() {
             const email = document.getElementById('quizEmail').value;
-            if (!email || !selectedQuizType) {
-                alert('Choisis un bijou et rentre ton email !');
-                return;
-            }
-            alert(`Super ! Un ${selectedQuizType} Liora te correspond. On t'envoie plus d'infos à ${email} 💎`);
+            if (!email || !selectedQuizType) { alert('Choisis un bijou et rentre ton email !'); return; }
+            alert(`Super ! Un ${selectedQuizType} Liora te correspond.\nOn t'envoie plus d'infos à ${email} 💎`);
             document.getElementById('quizEmail').value = '';
             selectedQuizType = null;
             document.querySelectorAll('.quiz-btn').forEach(b => b.classList.remove('selected'));
@@ -778,21 +683,22 @@
 
         function handleSubmit(event) {
             event.preventDefault();
-            const email = event.target.querySelector('input[type="email"]').value;
             document.getElementById('success').style.display = 'block';
             event.target.style.display = 'none';
         }
 
-        document.getElementById('chatInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-
-        function openPrecommandModal(productId, productName, price) {
-            currentProduct = { id: productId, name: productName, price: price };
+        function openPrecommandModal(productName, price) {
+            currentProduct = { name: productName, price: price };
             document.getElementById('modalProductName').textContent = productName;
             document.getElementById('modalProductPrice').textContent = price + '€';
+            document.getElementById('modalName').value     = '';
+            document.getElementById('modalEmail').value    = '';
             document.getElementById('modalQuantity').value = '1';
-            document.getElementById('modalEmail').value = '';
+            document.getElementById('modalFormArea').style.display = 'block';
+            document.getElementById('modalSuccess').style.display  = 'none';
+            const btn = document.getElementById('modalConfirmBtn');
+            btn.disabled    = false;
+            btn.textContent = 'Pré-commander Maintenant';
             document.getElementById('precommandModal').classList.add('active');
         }
 
@@ -800,56 +706,59 @@
             document.getElementById('precommandModal').classList.remove('active');
         }
 
-        function submitPrecommand() {
-            const email = document.getElementById('modalEmail').value.trim();
-            const quantity = parseInt(document.getElementById('modalQuantity').value);
+        document.getElementById('precommandModal').addEventListener('click', e => {
+            if (e.target.id === 'precommandModal') closePrecommandModal();
+        });
 
-            if (!email) {
-                alert('Rentre ton email !');
-                return;
-            }
+        async function submitPrecommand() {
+            const name     = document.getElementById('modalName').value.trim();
+            const email    = document.getElementById('modalEmail').value.trim();
+            const quantity = parseInt(document.getElementById('modalQuantity').value) || 1;
 
-            if (quantity < 1) {
-                alert('La quantité doit être minimum 1');
+            if (!name || !email || !email.includes('@') || !email.includes('.')) {
+                alert('Merci de remplir ton prénom et ton email.');
                 return;
             }
 
             const totalPrice = currentProduct.price * quantity;
+            const btn = document.getElementById('modalConfirmBtn');
+            btn.disabled    = true;
+            btn.textContent = 'Envoi en cours…';
 
-            fetch('/.netlify/functions/precommand', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    productId: currentProduct.id,
-                    productName: currentProduct.name,
-                    price: currentProduct.price,
-                    quantity: quantity,
-                    totalPrice: totalPrice,
-                    email: email
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                const res = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify({
+                        access_key: '3d73cce6-5221-4537-8d8f-d02019240dbb',
+                        subject:    '🛍️ Nouvelle précommande Liora — ' + currentProduct.name + ' (' + totalPrice + '€)',
+                        from_name:  'Liora Bijoux',
+                        name:       name,
+                        email:      email,
+                        Produit:    currentProduct.name,
+                        'Prix unitaire': currentProduct.price + '€',
+                        Quantité:   quantity,
+                        'Prix total': totalPrice + '€',
+                        Date:       new Date().toLocaleString('fr-FR'),
+                        botcheck:   '',
+                    }),
+                });
+
+                const data = await res.json();
+
                 if (data.success) {
-                    alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
-                    closePrecommandModal();
+                    document.getElementById('modalFormArea').style.display = 'none';
+                    document.getElementById('modalSuccess').style.display  = 'block';
                 } else {
-                    alert('Petite erreur technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
+                    throw new Error(data.message || 'Erreur inconnue');
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Petite erreur technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
-            });
-        }
-
-        document.getElementById('precommandModal').addEventListener('click', (e) => {
-            if (e.target.id === 'precommandModal') {
-                closePrecommandModal();
+            } catch (err) {
+                console.error('[Liora]', err);
+                btn.disabled    = false;
+                btn.textContent = 'Pré-commander Maintenant';
+                alert('❌ Une erreur est survenue. Réessaie ou contacte-nous à liora.jewelry.fr@outlook.com');
             }
-        });
+        }
     </script>
 </body>
 </html>
