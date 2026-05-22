@@ -820,16 +820,15 @@
                 return;
             }
 
-            // Send precommand via Formspree
+            // Send precommand via Netlify Function (which sends emails via SendGrid)
             const totalPrice = currentProduct.price * quantity;
 
-            fetch('https://formspree.io/f/mlgvngwe', {
+            fetch('/.netlify/functions/precommand', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    _subject: `Pré-commande ${currentProduct.name} - ${email}`,
                     productId: currentProduct.id,
                     productName: currentProduct.name,
                     price: currentProduct.price,
@@ -838,8 +837,9 @@
                     email: email
                 }),
             })
-            .then(response => {
-                if (response.ok) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
                     alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
                     closePrecommandModal();
                 } else {
