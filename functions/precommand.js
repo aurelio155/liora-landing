@@ -30,23 +30,37 @@ exports.handler = async (event) => {
       };
     }
 
-    // Send admin notification via Formspree
-    await fetch('https://formspree.io/f/mlgvngwe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        customerEmail: email,
-        productName: productName,
-        productId: productId,
-        quantity: quantity,
-        price: price,
-        totalPrice: totalPrice
-      })
-    });
-
-    // Send client confirmation via Resend
+    // Send admin notification
     try {
-      await fetch('https://api.resend.com/emails', {
+      const adminResponse = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: 'onboarding@resend.dev',
+          to: 'liora.jewelry.fr@outlook.com',
+          subject: `Nouvelle pré-commande : ${productName}`,
+          html: `
+            <h2>Nouvelle pré-commande</h2>
+            <p><strong>Client :</strong> ${email}</p>
+            <p><strong>Produit :</strong> ${productName}</p>
+            <p><strong>Quantité :</strong> ${quantity}</p>
+            <p><strong>Prix unitaire :</strong> ${price}€</p>
+            <p><strong>Total :</strong> ${totalPrice}€</p>
+          `
+        })
+      });
+      const adminData = await adminResponse.json();
+      console.log('Admin email response:', adminData);
+    } catch (adminError) {
+      console.error('Admin email error:', adminError);
+    }
+
+    // Send client confirmation
+    try {
+      const clientResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${RESEND_API_KEY}`,
@@ -65,8 +79,10 @@ exports.handler = async (event) => {
           `
         })
       });
-    } catch (resendError) {
-      console.error('Resend error:', resendError);
+      const clientData = await clientResponse.json();
+      console.log('Client email response:', clientData);
+    } catch (clientError) {
+      console.error('Client email error:', clientError);
     }
 
     return {
@@ -85,7 +101,10 @@ exports.handler = async (event) => {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ success: false, message: 'Erreur serveur' })
+      body: JSON.stringify({
+        success: false,
+        message: 'Erreur serveur'
+      })
     };
   }
 };
