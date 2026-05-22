@@ -1,5 +1,3 @@
-
-
 exports.handler = async (event) => {
   // CORS headers
   const headers = {
@@ -33,29 +31,18 @@ exports.handler = async (event) => {
       };
     }
 
-    // Get API key from environment variable
-    const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) {
+    // Get HF token from environment variable
+    const hfToken = process.env.HF_TOKEN;
+    if (!hfToken) {
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: "API key not configured" }),
+        body: JSON.stringify({ error: "HF token not configured" }),
       };
     }
 
-    // Call Groq API (free, no payment needed)
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "mixtral-8x7b-32768",
-        messages: [
-          {
-            role: "system",
-            content: `Tu es un assistant client pour Liora, une marque de bijoux haut de gamme.
+    // System prompt for Liora IA
+    const systemPrompt = `Tu es un assistant client pour Liora, une marque de bijoux haut de gamme.
 
 Liora propose des bijoux waterproof, hypoallergéniques, en acier inoxydable 316L + placage PVD.
 
@@ -70,29 +57,55 @@ Caractéristiques clés:
 - Minimaliste et intemporel
 - Parfait pour les jeunes femmes 15-30 ans
 
-Réponds aux questions des clients avec enthousiasme, professionalisme, et concision. Si la question est hors du scope Liora, suggère-lui de contacter liora.jewelry.fr@outlook.com.`,
+Réponds aux questions des clients avec enthousiasme, professionalisme, et concision en français.`;
+
+    // Call Hugging Face Inference API
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${hfToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputs: `[INST] Système: ${systemPrompt}\n\nClient: ${message}\n\nAssistant: [/INST]`,
+          parameters: {
+            max_new_tokens: 300,
+            temperature: 0.7,
           },
-          {
-            role: "user",
-            content: message,
-          },
-        ],
-        max_tokens: 300,
-      }),
-    });
+        }),
+      }
+    );
 
     if (!response.ok) {
       const error = await response.json();
-      console.error("API error:", error);
+      console.error("HF API error:", error);
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: "Failed to get response from API" }),
+        body: JSON.stringify({ error: "Failed to get response from Hugging Face" }),
       };
     }
 
     const data = await response.json();
-    const reply = data.choices[0].message.content;
+
+    // Extract the generated text
+    let reply = "";
+    if (Array.isArray(data) && data.length > 0) {
+      reply = data[0].generated_text;
+      // Clean up the response - remove the input part
+      const parts = reply.split("[/INST]");
+      if (parts.length > 1) {
+        reply = parts[1].trim();
+      }
+    } else if (data.generated_text) {
+      reply = data.generated_text;
+    }
+
+    if (!reply) {
+      reply = "Désolé, je n'ai pas pu générer une réponse. Essaie à nouveau!";
+    }
 
     return {
       statusCode: 200,
@@ -103,8 +116,3 @@ Réponds aux questions des clients avec enthousiasme, professionalisme, et conci
     console.error("Error:", error);
     return {
       statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: "Internal server error" }),
-    };
-  }
-};
