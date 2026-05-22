@@ -31,11 +31,11 @@ exports.handler = async (event) => {
     }
 
     // Send admin notification via Formspree
-    await fetch('https://formspree.io/f/maqkjkgb', {
+    await fetch('https://formspree.io/f/mlgvngwe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: email,
+        customerEmail: email,
         productName: productName,
         productId: productId,
         quantity: quantity,
@@ -45,9 +45,8 @@ exports.handler = async (event) => {
     });
 
     // Send client confirmation via Resend
-    let clientEmailSent = false;
     try {
-      const resendResponse = await fetch('https://api.resend.com/emails', {
+      await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${RESEND_API_KEY}`,
@@ -66,26 +65,8 @@ exports.handler = async (event) => {
           `
         })
       });
-
-      if (resendResponse.ok) {
-        clientEmailSent = true;
-      }
     } catch (resendError) {
       console.error('Resend error:', resendError);
-    }
-
-    // Fallback: if Resend failed, send via Formspree too
-    if (!clientEmailSent) {
-      await fetch('https://formspree.io/f/xredkywy', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          productName: productName,
-          quantity: quantity,
-          totalPrice: totalPrice
-        })
-      });
     }
 
     return {
