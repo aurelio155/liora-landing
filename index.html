@@ -201,6 +201,215 @@
             font-size: 13px;
         }
 
+        .shop-section {
+            margin: 120px 0;
+            padding: 60px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .shop-title {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .shop-subtitle {
+            font-size: 15px;
+            color: #888;
+            margin-bottom: 60px;
+            font-style: italic;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 191, 4, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-image {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            min-height: 40px;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .precommand-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
+            color: #1a1a1a;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .precommand-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .precommand-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .precommand-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .modal-price {
+            font-size: 28px;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d4af37;
+            margin-bottom: 15px;
+            font-family: inherit;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .modal-confirm {
+            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
+            color: #1a1a1a;
+        }
+
+        .modal-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-cancel {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-cancel:hover {
+            background: #e0e0e0;
+        }
+
         footer {
             margin-top: 80px;
             padding-top: 40px;
@@ -365,6 +574,77 @@
             <button onclick="submitQuiz()">Découvrir →</button>
         </div>
 
+        <section class="shop-section">
+            <h2 class="shop-title">Nos Créations Exclusives ✨</h2>
+            <p class="shop-subtitle">Des bijoux intemporels. Acier 316L + plaquage PVD doré. À porter tous les jours.</p>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">💍</div>
+                    <h3 class="product-name">Bague Minimalist</h3>
+                    <p class="product-desc">Épurée et intemporelle. La pièce qu'on porte à jamais.</p>
+                    <div class="product-price">18€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('bague-minimalist', 'Bague Minimalist', 18)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📿</div>
+                    <h3 class="product-name">Collier Chaîne Or</h3>
+                    <p class="product-desc">Fine et délicate. S'accorde avec tout. Jamais sans.</p>
+                    <div class="product-price">22€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('collier-chaine', 'Collier Chaîne Or', 22)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⌚</div>
+                    <h3 class="product-name">Bracelet Premium</h3>
+                    <p class="product-desc">Confortable et élégant. Le compagnon du quotidien.</p>
+                    <div class="product-price">25€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('bracelet-premium', 'Bracelet Premium', 25)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">✨</div>
+                    <h3 class="product-name">Boucles d'Oreilles</h3>
+                    <p class="product-desc">Légères et subtiles. La touche finale parfaite.</p>
+                    <div class="product-price">16€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('boucles-oreilles', 'Boucles d\'Oreilles', 16)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🔗</div>
+                    <h3 class="product-name">Hand Chain Or</h3>
+                    <p class="product-desc">Tendance et féminisante. La main parée d'or.</p>
+                    <div class="product-price">28€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('hand-chain', 'Hand Chain Or', 28)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <h3 class="product-name">Set Collier + Bague</h3>
+                    <p class="product-desc">L'ensemble parfait. Deux pièces, une histoire.</p>
+                    <div class="product-price">35€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('set-complet', 'Set Collier + Bague', 35)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👑</div>
+                    <h3 class="product-name">Bague Signature</h3>
+                    <p class="product-desc">Notre bestseller. 5000+ portent déjà la leur.</p>
+                    <div class="product-price">20€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('bague-signature', 'Bague Signature', 20)">Pré-commander →</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🌟</div>
+                    <h3 class="product-name">Box Découverte (4 pièces)</h3>
+                    <p class="product-desc">Essayer tout. Notre combo best-seller. Offre exclusive.</p>
+                    <div class="product-price">59€</div>
+                    <button class="precommand-btn" onclick="openPrecommandModal('box-decouverte', 'Box Découverte', 59)">Pré-commander →</button>
+                </div>
+            </div>
+        </section>
+
         <div class="cta-section">
             <div class="cta-title">Rejoins la communauté</div>
             <form onsubmit="handleSubmit(event)">
@@ -378,6 +658,19 @@
             <p>Un bijou pensé pour durer. Minimaliste, intemporel, et toujours avec toi.</p>
             <p style="margin-top: 20px;">Des questions ? <strong>liora.jewelry.fr@outlook.com</strong></p>
         </footer>
+    </div>
+
+    <div class="precommand-modal" id="precommandModal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalProductName">Bague Minimalist</div>
+            <div class="modal-price" id="modalProductPrice">18€</div>
+            <input type="email" class="modal-input" id="modalEmail" placeholder="Ton email" required>
+            <input type="number" class="modal-input" id="modalQuantity" placeholder="Quantité" value="1" min="1" required>
+            <div class="modal-buttons">
+                <button class="modal-confirm" onclick="submitPrecommand()">Pré-commander Maintenant</button>
+                <button class="modal-cancel" onclick="closePrecommandModal()">Annuler</button>
+            </div>
+        </div>
     </div>
 
     <button class="chat-button" onclick="toggleChat()">💬</button>
@@ -430,10 +723,8 @@
             addUserMessage(text);
             input.value = '';
 
-            // Show loading indicator
             addBotMessage('En train de réfléchir... 💭');
 
-            // Call the Netlify Function
             fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: {
@@ -446,17 +737,14 @@
                 return response.json();
             })
             .then(data => {
-                // Remove the loading message
                 const messages = document.getElementById('messages');
                 if (messages.lastChild && messages.lastChild.textContent === 'En train de réfléchir... 💭') {
                     messages.removeChild(messages.lastChild);
                 }
-                // Add the actual response
                 addBotMessage(data.reply);
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Remove the loading message
                 const messages = document.getElementById('messages');
                 if (messages.lastChild && messages.lastChild.textContent === 'En train de réfléchir... 💭') {
                     messages.removeChild(messages.lastChild);
@@ -492,6 +780,76 @@
 
         document.getElementById('chatInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
+        });
+
+        let currentProduct = {
+            id: null,
+            name: null,
+            price: null
+        };
+
+        function openPrecommandModal(productId, productName, price) {
+            currentProduct = { id: productId, name: productName, price: price };
+            document.getElementById('modalProductName').textContent = productName;
+            document.getElementById('modalProductPrice').textContent = price + '€';
+            document.getElementById('modalQuantity').value = '1';
+            document.getElementById('modalEmail').value = '';
+            document.getElementById('precommandModal').classList.add('active');
+        }
+
+        function closePrecommandModal() {
+            document.getElementById('precommandModal').classList.remove('active');
+        }
+
+        function submitPrecommand() {
+            const email = document.getElementById('modalEmail').value.trim();
+            const quantity = parseInt(document.getElementById('modalQuantity').value);
+
+            if (!email) {
+                alert('Rentre ton email !');
+                return;
+            }
+
+            if (quantity < 1) {
+                alert('La quantité doit être minimum 1');
+                return;
+            }
+
+            const totalPrice = currentProduct.price * quantity;
+
+            fetch('/.netlify/functions/precommand', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId: currentProduct.id,
+                    productName: currentProduct.name,
+                    price: currentProduct.price,
+                    quantity: quantity,
+                    totalPrice: totalPrice,
+                    email: email
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.checkoutUrl) {
+                    window.location.href = data.checkoutUrl;
+                } else {
+                    alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
+                    closePrecommandModal();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Petite erreur technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
+            });
+        }
+
+        document.getElementById('precommandModal').addEventListener('click', (e) => {
+            if (e.target.id === 'precommandModal') {
+                closePrecommandModal();
+            }
         });
     </script>
 </body>
