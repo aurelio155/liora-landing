@@ -686,8 +686,7 @@
         </div>
     </div>
 
-    <script>
-        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
     <script>
         // Initialize EmailJS
         emailjs.init('3u3H0197jfMZELY4z');
@@ -825,9 +824,9 @@
                 return;
             }
 
+            // Send precommand via Netlify Function (which sends emails via Formspree)
             const totalPrice = currentProduct.price * quantity;
 
-            // Send precommand via Netlify Function
             fetch('/.netlify/functions/precommand', {
                 method: 'POST',
                 headers: {
@@ -852,10 +851,14 @@
                         quantity: quantity,
                         totalPrice: totalPrice,
                         order_id: Math.random().toString(36).substr(2, 9).toUpperCase()
+                    }).then(() => {
+                        alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
+                        closePrecommandModal();
+                    }).catch(err => {
+                        console.error('EmailJS error:', err);
+                        alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
+                        closePrecommandModal();
                     });
-
-                    alert(`✓ Pré-commande validée !\n\n${currentProduct.name} x${quantity} = ${totalPrice}€\n\nOn t'envoie les détails à ${email} 💎`);
-                    closePrecommandModal();
                 } else {
                     alert('Petite erreur technique. Envoie un email à liora.jewelry.fr@outlook.com 💎');
                 }
