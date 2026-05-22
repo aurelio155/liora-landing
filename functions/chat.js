@@ -31,13 +31,13 @@ exports.handler = async (event) => {
       };
     }
 
-    // Get HF token from environment variable
-    const hfToken = process.env.HF_TOKEN;
-    if (!hfToken) {
+    // Get Claude API key from environment variable
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: "HF token not configured" }),
+        body: JSON.stringify({ error: "API key not configured" }),
       };
     }
 
@@ -59,48 +59,46 @@ Caractéristiques clés:
 
 Réponds aux questions des clients avec enthousiasme, professionalisme, et concision en français.`;
 
-    // Call Hugging Face Inference API
+    // Call Claude API
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
+      "https://api.anthropic.com/v1/messages",
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${hfToken}`,
+          "Authorization": `Bearer ${apiKey}`,
           "Content-Type": "application/json",
+          "anthropic-version": "2023-06-01",
         },
         body: JSON.stringify({
-          inputs: `[INST] Système: ${systemPrompt}\n\nClient: ${message}\n\nAssistant: [/INST]`,
-          parameters: {
-            max_new_tokens: 300,
-            temperature: 0.7,
-          },
+          model: "claude-3-5-sonnet-20241022",
+          max_tokens: 300,
+          system: systemPrompt,
+          messages: [
+            {
+              role: "user",
+              content: message,
+            },
+          ],
         }),
       }
     );
 
     if (!response.ok) {
       const error = await response.json();
-      console.error("HF API error:", error);
+      console.error("Claude API error:", error);
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: "Failed to get response from Hugging Face" }),
+        body: JSON.stringify({ error: "Failed to get response from Claude API" }),
       };
     }
 
     const data = await response.json();
 
-    // Extract the generated text
+    // Extract the response from Claude
     let reply = "";
-    if (Array.isArray(data) && data.length > 0) {
-      reply = data[0].generated_text;
-      // Clean up the response - remove the input part
-      const parts = reply.split("[/INST]");
-      if (parts.length > 1) {
-        reply = parts[1].trim();
-      }
-    } else if (data.generated_text) {
-      reply = data.generated_text;
+    if (data.content && data.content.length > 0) {
+      reply = data.content[0].text;
     }
 
     if (!reply) {
@@ -116,3 +114,9 @@ Réponds aux questions des clients avec enthousiasme, professionalisme, et conci
     console.error("Error:", error);
     return {
       statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: "Internal server error" }),
+    };
+  }
+};
+
