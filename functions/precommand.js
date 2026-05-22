@@ -1,3 +1,5 @@
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -28,50 +30,57 @@ exports.handler = async (event) => {
       };
     }
 
-    // Send to Formspree for admin notification
-    const adminPayload = {
-      email: email,
-      productName: productName,
-      productId: productId,
-      quantity: quantity,
-      price: price,
-      totalPrice: totalPrice
-    };
-
-    // Send to Formspree for client confirmation
-    const clientPayload = {
-      email: email,
-      productName: productName,
-      quantity: quantity,
-      totalPrice: totalPrice
-    };
-
+    // Send admin notification
     try {
-      // Send admin notification
-      await fetch('https://formspree.io/f/mlgvngwe', {
+      await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(adminPayload)
+        body: JSON.stringify({
+          from: 'noreply@resend.dev',
+          to: 'liora.jewelry.fr@outlook.com',
+          subject: `Nouvelle pré-commande : ${productName}`,
+          html: `
+            <h2>Nouvelle pré-commande</h2>
+            <p><strong>Client :</strong> ${email}</p>
+            <p><strong>Produit :</strong> ${productName}</p>
+            <p><strong>Quantité :</strong> ${quantity}</p>
+            <p><strong>Prix unitaire :</strong> ${price}€</p>
+            <p><strong>Total :</strong> ${totalPrice}€</p>
+          `
+        })
       });
-
-      // Send client confirmation
-      await fetch('https://formspree.io/f/xredkywy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(clientPayload)
-      });
-
-      console.log('Precommand and confirmation sent successfully');
-    } catch (formspreeError) {
-      console.error('Formspree send error:', formspreeError);
-      // Don't fail the precommand if Formspree fails
+    } catch (adminError) {
+      console.error('Admin email error:', adminError);
     }
 
-    // Return success
+    // Send client confirmation
+    try {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: 'noreply@resend.dev',
+          to: email,
+          subject: 'Votre pré-commande Liora est confirmée 💎',
+          html: `
+            <h2>Pré-commande confirmée !</h2>
+            <p>Merci pour ta pré-commande.</p>
+            <p><strong>${productName}</strong> x${quantity} = <strong>${totalPrice}€</strong></p>
+            <p>On te contactera bientôt pour les détails de livraison.</p>
+            <p>Liora</p>
+          `
+        })
+      });
+    } catch (clientError) {
+      console.error('Client email error:', clientError);
+    }
+
     return {
       statusCode: 200,
       headers,
@@ -86,12 +95,11 @@ exports.handler = async (event) => {
   } catch (e) {
     console.error('Error:', e);
     return {
-      statusCode: 200,
+      statusCode: 500,
       headers,
       body: JSON.stringify({
-        success: true,
-        message: 'Pré-commande enregistrée ! On te contactera bientôt.',
-        fallback: true
+        success: false,
+        message: 'Erreur serveur'
       })
     };
   }
