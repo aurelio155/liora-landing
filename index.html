@@ -688,10 +688,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
     <script>
+        // DECLARE ALL VARIABLES AT THE TOP
+        let selectedQuizType = null;
+        let currentProduct = {
+            id: null,
+            name: null,
+            price: null
+        };
+
         // Initialize EmailJS
         emailjs.init('3u3H0197jfMZELY4z');
-
-        let selectedQuizType = null;
 
         function toggleChat() {
             const chatWindow = document.getElementById('chatWindow');
@@ -726,11 +732,8 @@
 
             addUserMessage(text);
             input.value = '';
-
-            // Show loading indicator
             addBotMessage('En train de réfléchir... 💭');
 
-            // Call the Netlify Function
             fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: {
@@ -743,17 +746,14 @@
                 return response.json();
             })
             .then(data => {
-                // Remove the loading message
                 const messages = document.getElementById('messages');
                 if (messages.lastChild && messages.lastChild.textContent === 'En train de réfléchir... 💭') {
                     messages.removeChild(messages.lastChild);
                 }
-                // Add the actual response
                 addBotMessage(data.reply);
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Remove the loading message
                 const messages = document.getElementById('messages');
                 if (messages.lastChild && messages.lastChild.textContent === 'En train de réfléchir... 💭') {
                     messages.removeChild(messages.lastChild);
@@ -791,12 +791,6 @@
             if (e.key === 'Enter') sendMessage();
         });
 
-        let currentProduct = {
-            id: null,
-            name: null,
-            price: null
-        };
-
         function openPrecommandModal(productId, productName, price) {
             currentProduct = { id: productId, name: productName, price: price };
             document.getElementById('modalProductName').textContent = productName;
@@ -824,7 +818,6 @@
                 return;
             }
 
-            // Send precommand via Netlify Function (which sends emails via Formspree)
             const totalPrice = currentProduct.price * quantity;
 
             fetch('/.netlify/functions/precommand', {
@@ -844,7 +837,6 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Send confirmation email to client via EmailJS
                     emailjs.send('service_p646aha', 'template_v2qsc7d', {
                         email: email,
                         productName: currentProduct.name,
@@ -869,7 +861,6 @@
             });
         }
 
-        // Close modal when clicking outside
         document.getElementById('precommandModal').addEventListener('click', (e) => {
             if (e.target.id === 'precommandModal') {
                 closePrecommandModal();
