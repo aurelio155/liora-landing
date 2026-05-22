@@ -31,7 +31,7 @@ exports.handler = async (event) => {
     }
 
     // Send admin notification via Formspree
-    const formspreeResponse = await fetch('https://formspree.io/f/mlgvngwe', {
+    await fetch('https://formspree.io/f/maqkjkgb', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -44,37 +44,34 @@ exports.handler = async (event) => {
       })
     });
 
-    // Send client confirmation via Resend (with onboarding domain)
+    // Send client confirmation via Resend
     let clientEmailSent = false;
+    try {
+      const resendResponse = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: 'onboarding@resend.dev',
+          to: email,
+          subject: 'Votre pré-commande Liora est confirmée 💎',
+          html: `
+            <h2>Pré-commande confirmée !</h2>
+            <p>Merci pour ta pré-commande.</p>
+            <p><strong>${productName}</strong> x${quantity} = <strong>${totalPrice}€</strong></p>
+            <p>On te contactera bientôt pour les détails de livraison.</p>
+            <p>Liora</p>
+          `
+        })
+      });
 
-    if (RESEND_API_KEY) {
-      try {
-        const resendResponse = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${RESEND_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            from: 'onboarding@resend.dev',
-            to: email,
-            subject: 'Votre pré-commande Liora est confirmée 💎',
-            html: `
-              <h2>Pré-commande confirmée !</h2>
-              <p>Merci pour ta pré-commande.</p>
-              <p><strong>${productName}</strong> x${quantity} = <strong>${totalPrice}€</strong></p>
-              <p>On te contactera bientôt pour les détails de livraison.</p>
-              <p>Liora</p>
-            `
-          })
-        });
-
-        if (resendResponse.ok) {
-          clientEmailSent = true;
-        }
-      } catch (resendError) {
-        console.error('Resend error:', resendError);
+      if (resendResponse.ok) {
+        clientEmailSent = true;
       }
+    } catch (resendError) {
+      console.error('Resend error:', resendError);
     }
 
     // Fallback: if Resend failed, send via Formspree too
