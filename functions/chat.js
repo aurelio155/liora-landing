@@ -7,34 +7,36 @@ exports.handler = async (event) => {
     const { message } = JSON.parse(event.body);
     if (!message) return { statusCode: 400, headers, body: JSON.stringify({ reply: "Message required" }) };
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) return { statusCode: 200, headers, body: JSON.stringify({ reply: "ERROR: No API key in Netlify" }) };
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) return { statusCode: 200, headers, body: JSON.stringify({ reply: "Configuration error" }) };
 
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+    const resp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "anthropic-version": "2023-06-01"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "claude-opus-4",
-        max_tokens: 300,
-        system: "Tu es assistant Liora bijoux.",
-        messages: [{ role: "user", content: message }]
+        model: "mixtral-8x7b-32768",
+        messages: [
+          { role: "system", content: "Tu es un assistant expert Liora bijoux. Réponds en français, amical et professionnel. Liora = acier 316L + plaquage PVD, waterproof, hypoallergénique, 15€-59€. Jeunes femmes 15-30 ans. Sois concis (2-3 phrases), enthousiaste." },
+          { role: "user", content: message }
+        ],
+        max_tokens: 200,
+        temperature: 0.7
       })
     });
 
     const data = await resp.json();
 
     if (!resp.ok) {
-      const errorMsg = data.error?.message || JSON.stringify(data);
-      return { statusCode: 200, headers, body: JSON.stringify({ reply: `ERROR: ${errorMsg}` }) };
+      const errorMsg = data.error?.message || "API error";
+      return { statusCode: 200, headers, body: JSON.stringify({ reply: `Erreur: ${errorMsg}` }) };
     }
 
-    const reply = data.content?.[0]?.text || "No response";
+    const reply = data.choices?.[0]?.message?.content || "Désolée, je n'ai pas compris.";
     return { statusCode: 200, headers, body: JSON.stringify({ reply }) };
   } catch (e) {
-    return { statusCode: 200, headers, body: JSON.stringify({ reply: `ERROR: ${e.message}` }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ reply: `Erreur technique: ${e.message}` }) };
   }
 };
