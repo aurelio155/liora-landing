@@ -4,488 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liora — Les bijoux que tu n'enlèves jamais</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init('eFgqA4rYgg6E9NaB9');</script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Georgia', 'Garamond', serif;
-            background: #fefdfb;
-            color: #333;
-            line-height: 1.8;
-        }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 60px 30px;
-            text-align: center;
-        }
-        header {
-            margin-bottom: 80px;
-            padding-bottom: 60px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        .logo-img {
-            max-width: 300px;
-            height: auto;
-            margin-bottom: 40px;
-        }
-        h1 {
-            font-size: 48px;
-            font-weight: 400;
-            line-height: 1.3;
-            margin-bottom: 25px;
-            color: #1a1a1a;
-        }
-        .subtitle {
-            font-size: 17px;
-            color: #777;
-            margin-bottom: 60px;
-            font-weight: 300;
-            font-style: italic;
-        }
-        .scarcity-bar {
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 16px;
-            margin-bottom: 40px;
-            font-size: 14px;
-            color: #d4af37;
-            font-weight: 600;
-        }
-        .features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 80px 0;
-        }
-        .feature {
-            text-align: left;
-            padding: 30px;
-            border-left: 2px solid #d4af37;
-            background: rgba(212, 175, 55, 0.03);
-        }
-        .feature h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #1a1a1a;
-        }
-        .feature p {
-            font-size: 14px;
-            color: #888;
-            line-height: 1.7;
-        }
-        .jewelry-3d {
-            width: 150px;
-            height: 150px;
-            margin: 60px auto;
-            background: linear-gradient(135deg, #efbf04 0%, #d4af37 100%);
-            border-radius: 50%;
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
-            animation: rotate 8s linear infinite;
-        }
-        @keyframes rotate {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        .quiz-section {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 40px 30px;
-            margin: 80px 0;
-        }
-        .quiz-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        .quiz-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .quiz-btn {
-            flex: 1;
-            min-width: 100px;
-            padding: 10px;
-            border: 1px solid #d4af37;
-            background: white;
-            color: #d4af37;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
-            transition: all 0.3s;
-        }
-        .quiz-btn:hover,
-        .quiz-btn.selected {
-            background: #d4af37;
-            color: white;
-        }
-        .quiz-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d4af37;
-            margin-bottom: 15px;
-            font-family: inherit;
-            font-size: 14px;
-        }
-        .cta-section {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 60px 30px;
-            margin: 80px 0;
-        }
-        .cta-title {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 30px;
-        }
-        input[type="email"] {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #d4af37;
-            margin-bottom: 12px;
-            font-family: inherit;
-            font-size: 15px;
-        }
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
-            color: #1a1a1a;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: transform 0.3s;
-        }
-        button:hover {
-            transform: translateY(-2px);
-        }
-        .success-message {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: #f0f0f0;
-            color: #333;
-            font-size: 13px;
-        }
-        .shop-section {
-            margin: 120px 0;
-            padding: 60px 0;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        .shop-title {
-            font-size: 36px;
-            font-weight: 400;
-            margin-bottom: 15px;
-            color: #1a1a1a;
-        }
-        .shop-subtitle {
-            font-size: 15px;
-            color: #888;
-            margin-bottom: 60px;
-            font-style: italic;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        .product-card {
-            background: white;
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 30px 20px;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(239, 191, 4, 0.1), transparent);
-            transition: left 0.5s;
-        }
-        .product-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
-            transform: translateY(-8px);
-        }
-        .product-card:hover::before {
-            left: 100%;
-        }
-        .product-image {
-            font-size: 50px;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .product-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #1a1a1a;
-        }
-        .product-desc {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            min-height: 40px;
-        }
-        .product-price {
-            font-size: 22px;
-            font-weight: 700;
-            color: #d4af37;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-        .precommand-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
-            color: #1a1a1a;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 13px;
-            transition: all 0.3s;
-        }
-        .precommand-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-        }
-        .precommand-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-        }
-        .precommand-modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: white;
-            padding: 50px 40px;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s ease-out;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .modal-header {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #1a1a1a;
-        }
-        .modal-price {
-            font-size: 28px;
-            color: #d4af37;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-        .modal-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d4af37;
-            margin-bottom: 15px;
-            font-family: inherit;
-            font-size: 14px;
-            border-radius: 4px;
-        }
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-        }
-        .modal-buttons button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 4px;
-            transition: all 0.3s;
-            text-transform: none;
-            letter-spacing: 0;
-        }
-        .modal-confirm {
-            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
-            color: #1a1a1a;
-        }
-        .modal-confirm:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-        }
-        .modal-confirm:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .modal-cancel {
-            background: #f0f0f0;
-            color: #333;
-        }
-        .modal-cancel:hover {
-            background: #e0e0e0;
-            transform: none;
-        }
-        .modal-success {
-            display: none;
-            text-align: center;
-            padding: 10px 0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', 'Garamond', serif; background: #fefdfb; color: #333; line-height: 1.8; }
+        .container { max-width: 700px; margin: 0 auto; padding: 60px 30px; text-align: center; }
+        header { margin-bottom: 80px; padding-bottom: 60px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .logo-img { max-width: 300px; height: auto; margin-bottom: 40px; }
+        h1 { font-size: 48px; font-weight: 400; line-height: 1.3; margin-bottom: 25px; color: #1a1a1a; }
+        .subtitle { font-size: 17px; color: #777; margin-bottom: 60px; font-weight: 300; font-style: italic; }
+        .scarcity-bar { background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.2); padding: 16px; margin-bottom: 40px; font-size: 14px; color: #d4af37; font-weight: 600; }
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 80px 0; }
+        .feature { text-align: left; padding: 30px; border-left: 2px solid #d4af37; background: rgba(212, 175, 55, 0.03); }
+        .feature h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #1a1a1a; }
+        .feature p { font-size: 14px; color: #888; line-height: 1.7; }
+        .jewelry-3d { width: 150px; height: 150px; margin: 60px auto; background: linear-gradient(135deg, #efbf04 0%, #d4af37 100%); border-radius: 50%; box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3); animation: rotate 8s linear infinite; }
+        @keyframes rotate { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        .quiz-section { background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.15); padding: 40px 30px; margin: 80px 0; }
+        .quiz-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; }
+        .quiz-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .quiz-btn { flex: 1; min-width: 100px; padding: 10px; border: 1px solid #d4af37; background: white; color: #d4af37; cursor: pointer; font-weight: 600; font-size: 12px; transition: all 0.3s; }
+        .quiz-btn:hover, .quiz-btn.selected { background: #d4af37; color: white; }
+        .quiz-input { width: 100%; padding: 12px; border: 1px solid #d4af37; margin-bottom: 15px; font-family: inherit; font-size: 14px; }
+        .cta-section { background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); padding: 60px 30px; margin: 80px 0; }
+        .cta-title { font-size: 24px; font-weight: 400; margin-bottom: 30px; }
+        input[type="email"] { width: 100%; padding: 14px; border: 1px solid #d4af37; margin-bottom: 12px; font-family: inherit; font-size: 15px; }
+        button { width: 100%; padding: 14px; background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%); color: #1a1a1a; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.3s; }
+        button:hover { transform: translateY(-2px); }
+        .success-message { display: none; margin-top: 15px; padding: 15px; background: #f0f0f0; color: #333; font-size: 13px; }
+        .shop-section { margin: 120px 0; padding: 60px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .shop-title { font-size: 36px; font-weight: 400; margin-bottom: 15px; color: #1a1a1a; }
+        .shop-subtitle { font-size: 15px; color: #888; margin-bottom: 60px; font-style: italic; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px; }
+        .product-card { background: white; border: 1px solid rgba(212, 175, 55, 0.15); padding: 30px 20px; text-align: center; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; }
+        .product-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(239, 191, 4, 0.1), transparent); transition: left 0.5s; }
+        .product-card:hover { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15); transform: translateY(-8px); }
+        .product-card:hover::before { left: 100%; }
+        .product-image { font-size: 50px; margin-bottom: 20px; display: inline-block; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #1a1a1a; }
+        .product-desc { font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.6; min-height: 40px; }
+        .product-price { font-size: 22px; font-weight: 700; color: #d4af37; margin-bottom: 20px; letter-spacing: 0.5px; }
+        .precommand-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%); color: #1a1a1a; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; font-size: 13px; transition: all 0.3s; }
+        .precommand-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
+        .precommand-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: center; }
+        .precommand-modal.active { display: flex; }
+        .modal-content { background: white; padding: 50px 40px; border-radius: 10px; max-width: 400px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { font-size: 24px; font-weight: 600; margin-bottom: 10px; color: #1a1a1a; }
+        .modal-price { font-size: 28px; color: #d4af37; font-weight: 700; margin-bottom: 30px; }
+        .modal-input { width: 100%; padding: 12px; border: 1px solid #d4af37; margin-bottom: 15px; font-family: inherit; font-size: 14px; border-radius: 4px; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 5px; }
+        .modal-buttons button { flex: 1; padding: 12px; border: none; cursor: pointer; font-weight: 600; border-radius: 4px; transition: all 0.3s; text-transform: none; letter-spacing: 0; }
+        .modal-confirm { background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%); color: #1a1a1a; }
+        .modal-confirm:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
+        .modal-confirm:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .modal-cancel { background: #f0f0f0; color: #333; }
+        .modal-cancel:hover { background: #e0e0e0; transform: none; }
+        .modal-success { display: none; text-align: center; padding: 10px 0; }
         .modal-success .big-emoji { font-size: 3rem; margin-bottom: 14px; }
         .modal-success strong { font-size: 1.1rem; color: #1a1a1a; display: block; margin-bottom: 10px; }
         .modal-success p { font-size: 0.9rem; color: #666; line-height: 1.6; }
-        footer {
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            font-size: 12px;
-            color: #999;
-        }
-        .chat-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
-            border-radius: 50%;
-            border: none;
-            color: #1a1a1a;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            z-index: 100;
-        }
-        .chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 350px;
-            height: 500px;
-            background: white;
-            border: 1px solid #d4af37;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            display: none;
-            flex-direction: column;
-            z-index: 100;
-            border-radius: 8px;
-        }
+        footer { margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(212, 175, 55, 0.2); font-size: 12px; color: #999; }
+        .chat-button { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%); border-radius: 50%; border: none; color: #1a1a1a; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); z-index: 100; }
+        .chat-window { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px; background: white; border: 1px solid #d4af37; box-shadow: 0 20px 60px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 100; border-radius: 8px; }
         .chat-window.active { display: flex; }
-        .chat-header {
-            background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%);
-            color: #1a1a1a;
-            padding: 15px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-        }
-        .message {
-            margin-bottom: 12px;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            line-height: 1.4;
-        }
-        .message.bot  { background: #f0f0f0; color: #333; }
+        .chat-header { background: linear-gradient(135deg, #d4af37 0%, #efbf04 100%); color: #1a1a1a; padding: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 15px; }
+        .message { margin-bottom: 12px; padding: 10px; border-radius: 6px; font-size: 12px; line-height: 1.4; }
+        .message.bot { background: #f0f0f0; color: #333; }
         .message.user { background: #d4af37; color: white; margin-left: 20px; }
-        .chat-input-area {
-            border-top: 1px solid #eee;
-            padding: 12px;
-            display: flex;
-            gap: 8px;
-        }
-        .chat-input-area input {
-            flex: 1;
-            border: 1px solid #d4af37;
-            padding: 8px;
-            font-family: inherit;
-        }
-        .chat-input-area button {
-            padding: 8px 12px;
-            background: #d4af37;
-            color: #1a1a1a;
-            margin: 0;
-            flex: 0 0 40px;
-        }
-        @media (max-width: 600px) {
-            h1 { font-size: 36px; }
-            .features { grid-template-columns: 1fr; gap: 25px; }
-            .container { padding: 40px 20px; }
-            .chat-window { width: calc(100% - 40px); right: 20px; }
-        }
+        .chat-input-area { border-top: 1px solid #eee; padding: 12px; display: flex; gap: 8px; }
+        .chat-input-area input { flex: 1; border: 1px solid #d4af37; padding: 8px; font-family: inherit; }
+        .chat-input-area button { padding: 8px 12px; background: #d4af37; color: #1a1a1a; margin: 0; flex: 0 0 40px; }
+        @media (max-width: 600px) { h1 { font-size: 36px; } .features { grid-template-columns: 1fr; gap: 25px; } .container { padding: 40px 20px; } .chat-window { width: calc(100% - 40px); right: 20px; } }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="scarcity-bar">
-                ⏱️ <strong>47 bijoux</strong> en stock — Lancement dans <strong>8 jours</strong>
-            </div>
+            <div class="scarcity-bar">⏱️ <strong>47 bijoux</strong> en stock — Lancement dans <strong>8 jours</strong></div>
             <img src="liora-logo.png" alt="Liora" class="logo-img">
             <h1>Les bijoux que tu n'enlèves jamais</h1>
             <p class="subtitle">Conçu pour te suivre partout. À la douche, à la plage, en vacances, en sport. Un bijou qui devient une part de toi.</p>
         </header>
-
         <div class="jewelry-3d"></div>
-
         <section class="features">
-            <div class="feature">
-                <h3>L'inséparable</h3>
-                <p>Il ne part jamais. À la douche, au travail, en voyage, en rêve — il reste là, fidèle.</p>
-            </div>
-            <div class="feature">
-                <h3>Toujours beau</h3>
-                <p>Ne ternit pas, ne verdît pas, ne s'oxyde jamais. Toujours aussi beau qu'au premier jour.</p>
-            </div>
-            <div class="feature">
-                <h3>Forgée pour l'éternité</h3>
-                <p>Acier inoxydable 316L + placage PVD. Les meilleures matières pour un bijou qui ne ternit jamais.</p>
-            </div>
-            <div class="feature">
-                <h3>Doux comme un secret</h3>
-                <p>Hypoallergénique, il chérit ta peau sans jamais l'irriter. Même la plus sensible.</p>
-            </div>
+            <div class="feature"><h3>L'inséparable</h3><p>Il ne part jamais. À la douche, au travail, en voyage, en rêve — il reste là, fidèle.</p></div>
+            <div class="feature"><h3>Toujours beau</h3><p>Ne ternit pas, ne verdît pas, ne s'oxyde jamais. Toujours aussi beau qu'au premier jour.</p></div>
+            <div class="feature"><h3>Forgée pour l'éternité</h3><p>Acier inoxydable 316L + placage PVD. Les meilleures matières pour un bijou qui ne ternit jamais.</p></div>
+            <div class="feature"><h3>Doux comme un secret</h3><p>Hypoallergénique, il chérit ta peau sans jamais l'irriter. Même la plus sensible.</p></div>
         </section>
-
         <div class="quiz-section">
             <div class="quiz-title">Quel bijou Liora es-tu ? ✨</div>
             <div class="quiz-buttons">
@@ -497,70 +107,20 @@
             <input type="email" id="quizEmail" class="quiz-input" placeholder="Ton email">
             <button onclick="submitQuiz()">Découvrir →</button>
         </div>
-
         <section class="shop-section">
             <h2 class="shop-title">Nos Créations Exclusives ✨</h2>
             <p class="shop-subtitle">Des bijoux intemporels. Acier 316L + plaquage PVD doré. À porter tous les jours.</p>
             <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">💍</div>
-                    <h3 class="product-name">Bague Minimalist</h3>
-                    <p class="product-desc">Épurée et intemporelle. La pièce qu'on porte à jamais.</p>
-                    <div class="product-price">18€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Bague Minimalist', 18)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">📿</div>
-                    <h3 class="product-name">Collier Chaîne Or</h3>
-                    <p class="product-desc">Fine et délicate. S'accorde avec tout. Jamais sans.</p>
-                    <div class="product-price">22€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Collier Chaîne Or', 22)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">⌚</div>
-                    <h3 class="product-name">Bracelet Premium</h3>
-                    <p class="product-desc">Confortable et élégant. Le compagnon du quotidien.</p>
-                    <div class="product-price">25€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Bracelet Premium', 25)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">✨</div>
-                    <h3 class="product-name">Boucles d'Oreilles</h3>
-                    <p class="product-desc">Légères et subtiles. La touche finale parfaite.</p>
-                    <div class="product-price">16€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Boucles d\'Oreilles', 16)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">🔗</div>
-                    <h3 class="product-name">Hand Chain Or</h3>
-                    <p class="product-desc">Tendance et féminisante. La main parée d'or.</p>
-                    <div class="product-price">28€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Hand Chain Or', 28)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">💎</div>
-                    <h3 class="product-name">Set Collier + Bague</h3>
-                    <p class="product-desc">L'ensemble parfait. Deux pièces, une histoire.</p>
-                    <div class="product-price">35€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Set Collier + Bague', 35)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">👑</div>
-                    <h3 class="product-name">Bague Signature</h3>
-                    <p class="product-desc">Notre bestseller. 5000+ portent déjà la leur.</p>
-                    <div class="product-price">20€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Bague Signature', 20)">Pré-commander →</button>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">🌟</div>
-                    <h3 class="product-name">Box Découverte (4 pièces)</h3>
-                    <p class="product-desc">Essayer tout. Notre combo best-seller. Offre exclusive.</p>
-                    <div class="product-price">59€</div>
-                    <button class="precommand-btn" onclick="openPrecommandModal('Box Découverte (4 pièces)', 59)">Pré-commander →</button>
-                </div>
+                <div class="product-card"><div class="product-image">💍</div><h3 class="product-name">Bague Minimalist</h3><p class="product-desc">Épurée et intemporelle. La pièce qu'on porte à jamais.</p><div class="product-price">18€</div><button class="precommand-btn" onclick="openPrecommandModal('Bague Minimalist', 18)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">📿</div><h3 class="product-name">Collier Chaîne Or</h3><p class="product-desc">Fine et délicate. S'accorde avec tout. Jamais sans.</p><div class="product-price">22€</div><button class="precommand-btn" onclick="openPrecommandModal('Collier Chaîne Or', 22)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">⌚</div><h3 class="product-name">Bracelet Premium</h3><p class="product-desc">Confortable et élégant. Le compagnon du quotidien.</p><div class="product-price">25€</div><button class="precommand-btn" onclick="openPrecommandModal('Bracelet Premium', 25)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">✨</div><h3 class="product-name">Boucles d'Oreilles</h3><p class="product-desc">Légères et subtiles. La touche finale parfaite.</p><div class="product-price">16€</div><button class="precommand-btn" onclick="openPrecommandModal('Boucles d\'Oreilles', 16)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">🔗</div><h3 class="product-name">Hand Chain Or</h3><p class="product-desc">Tendance et féminisante. La main parée d'or.</p><div class="product-price">28€</div><button class="precommand-btn" onclick="openPrecommandModal('Hand Chain Or', 28)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">💎</div><h3 class="product-name">Set Collier + Bague</h3><p class="product-desc">L'ensemble parfait. Deux pièces, une histoire.</p><div class="product-price">35€</div><button class="precommand-btn" onclick="openPrecommandModal('Set Collier + Bague', 35)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">👑</div><h3 class="product-name">Bague Signature</h3><p class="product-desc">Notre bestseller. 5000+ portent déjà la leur.</p><div class="product-price">20€</div><button class="precommand-btn" onclick="openPrecommandModal('Bague Signature', 20)">Pré-commander →</button></div>
+                <div class="product-card"><div class="product-image">🌟</div><h3 class="product-name">Box Découverte (4 pièces)</h3><p class="product-desc">Essayer tout. Notre combo best-seller. Offre exclusive.</p><div class="product-price">59€</div><button class="precommand-btn" onclick="openPrecommandModal('Box Découverte (4 pièces)', 59)">Pré-commander →</button></div>
             </div>
         </section>
-
         <div class="cta-section">
             <div class="cta-title">Rejoins la communauté</div>
             <form onsubmit="handleSubmit(event)">
@@ -569,25 +129,23 @@
                 <div class="success-message" id="success">✓ Merci ! Tu seras notifiée en premier.</div>
             </form>
         </div>
-
         <footer>
             <p>Un bijou pensé pour durer. Minimaliste, intemporel, et toujours avec toi.</p>
             <p style="margin-top: 20px;">Des questions ? <strong>liora.jewelry.fr@outlook.com</strong></p>
         </footer>
     </div>
 
-    <!-- Modal Précommande -->
     <div class="precommand-modal" id="precommandModal">
         <div class="modal-content">
             <div id="modalFormArea">
                 <div class="modal-header" id="modalProductName">Bague Minimalist</div>
                 <div class="modal-price" id="modalProductPrice">18€</div>
-                <input type="text"   class="modal-input" id="modalName"     placeholder="Ton prénom" autocomplete="given-name" />
-                <input type="email"  class="modal-input" id="modalEmail"    placeholder="Ton email" autocomplete="email" />
+                <input type="text" class="modal-input" id="modalName" placeholder="Ton prénom" autocomplete="given-name" />
+                <input type="email" class="modal-input" id="modalEmail" placeholder="Ton email" autocomplete="email" />
                 <input type="number" class="modal-input" id="modalQuantity" placeholder="Quantité" value="1" min="1" />
                 <div class="modal-buttons">
                     <button class="modal-confirm" id="modalConfirmBtn" onclick="submitPrecommand()">Pré-commander Maintenant</button>
-                    <button class="modal-cancel"  onclick="closePrecommandModal()">Annuler</button>
+                    <button class="modal-cancel" onclick="closePrecommandModal()">Annuler</button>
                 </div>
             </div>
             <div class="modal-success" id="modalSuccess">
@@ -600,7 +158,6 @@
         </div>
     </div>
 
-    <!-- Chat IA -->
     <button class="chat-button" onclick="toggleChat()">💬</button>
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
@@ -616,7 +173,7 @@
 
     <script>
         let selectedQuizType = null;
-        let currentProduct   = { name: '', price: 0 };
+        let currentProduct = { name: '', price: 0 };
 
         function toggleChat() {
             const w = document.getElementById('chatWindow');
@@ -641,7 +198,7 @@
         }
         function sendMessage() {
             const input = document.getElementById('chatInput');
-            const text  = input.value.trim();
+            const text = input.value.trim();
             if (!text) return;
             addUserMessage(text);
             input.value = '';
@@ -691,13 +248,13 @@
             currentProduct = { name: productName, price: price };
             document.getElementById('modalProductName').textContent = productName;
             document.getElementById('modalProductPrice').textContent = price + '€';
-            document.getElementById('modalName').value     = '';
-            document.getElementById('modalEmail').value    = '';
+            document.getElementById('modalName').value = '';
+            document.getElementById('modalEmail').value = '';
             document.getElementById('modalQuantity').value = '1';
             document.getElementById('modalFormArea').style.display = 'block';
-            document.getElementById('modalSuccess').style.display  = 'none';
+            document.getElementById('modalSuccess').style.display = 'none';
             const btn = document.getElementById('modalConfirmBtn');
-            btn.disabled    = false;
+            btn.disabled = false;
             btn.textContent = 'Pré-commander Maintenant';
             document.getElementById('precommandModal').classList.add('active');
         }
@@ -711,8 +268,8 @@
         });
 
         async function submitPrecommand() {
-            const name     = document.getElementById('modalName').value.trim();
-            const email    = document.getElementById('modalEmail').value.trim();
+            const name = document.getElementById('modalName').value.trim();
+            const email = document.getElementById('modalEmail').value.trim();
             const quantity = parseInt(document.getElementById('modalQuantity').value) || 1;
 
             if (!name || !email || !email.includes('@') || !email.includes('.')) {
@@ -722,7 +279,7 @@
 
             const totalPrice = currentProduct.price * quantity;
             const btn = document.getElementById('modalConfirmBtn');
-            btn.disabled    = true;
+            btn.disabled = true;
             btn.textContent = 'Envoi en cours…';
 
             try {
@@ -731,30 +288,38 @@
                     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                     body: JSON.stringify({
                         access_key: '3d73cce6-5221-4537-8d8f-d02019240dbb',
-                        subject:    '🛍️ Nouvelle précommande Liora — ' + currentProduct.name + ' (' + totalPrice + '€)',
-                        from_name:  'Liora Bijoux',
-                        name:       name,
-                        email:      email,
-                        Produit:    currentProduct.name,
+                        subject: '🛍️ Nouvelle précommande Liora — ' + currentProduct.name + ' (' + totalPrice + '€)',
+                        from_name: 'Liora Bijoux',
+                        name: name,
+                        email: email,
+                        Produit: currentProduct.name,
                         'Prix unitaire': currentProduct.price + '€',
-                        Quantité:   quantity,
+                        Quantité: quantity,
                         'Prix total': totalPrice + '€',
-                        Date:       new Date().toLocaleString('fr-FR'),
-                        botcheck:   '',
+                        Date: new Date().toLocaleString('fr-FR'),
+                        botcheck: '',
                     }),
                 });
 
                 const data = await res.json();
 
                 if (data.success) {
+                    await emailjs.send('service_7ws20ro', 'template_joht10x', {
+                        to_name: name,
+                        to_email: email,
+                        product_name: currentProduct.name,
+                        product_price: currentProduct.price + '€',
+                        quantity: quantity,
+                        total_price: totalPrice + '€',
+                    });
                     document.getElementById('modalFormArea').style.display = 'none';
-                    document.getElementById('modalSuccess').style.display  = 'block';
+                    document.getElementById('modalSuccess').style.display = 'block';
                 } else {
                     throw new Error(data.message || 'Erreur inconnue');
                 }
             } catch (err) {
                 console.error('[Liora]', err);
-                btn.disabled    = false;
+                btn.disabled = false;
                 btn.textContent = 'Pré-commander Maintenant';
                 alert('❌ Une erreur est survenue. Réessaie ou contacte-nous à liora.jewelry.fr@outlook.com');
             }
